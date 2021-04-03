@@ -82,19 +82,23 @@ void enqueue_q(queue *q, customer *c)
 
 customer *dequeue_q(queue *q)
 {
-    assert(q->size > 0);
-    link *tmp = q->first;
-    customer *c = q->first->c;
-    q->first = q->first->next;
+    if(q->size > 0){
+         link *tmp = q->first;
+        customer *c = q->first->c;
+        q->first = q->first->next;
 
-    q->size--;
+        q->size--;
 
-    free(tmp);
-    if (q->first == NULL)
-    {
-        q->last = NULL;
+        free(tmp);
+        if (q->first == NULL)
+        {
+            q->last = NULL;
+        }
+        return c;
+
     }
-    return c;
+    return NULL;
+   
 }
 void display_q(queue *q)
 {

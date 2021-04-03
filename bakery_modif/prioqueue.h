@@ -3,7 +3,18 @@
 #include "event.h"
 
 typedef struct _prioqueue prioqueue;
+typedef struct _link
+{
+    event *e;
+    struct _link *next;
 
+} link;
+
+struct _prioqueue
+{
+    link *first;
+    int size;
+};
 /**
  * Create and return a pointer to a new priority queue.
  */

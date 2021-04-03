@@ -6,18 +6,7 @@
 
 #define MAX_QUEUE_SIZE 100
 
-typedef struct _link
-{
-    event *e;
-    struct _link *next;
 
-} link;
-
-struct _prioqueue
-{
-    link *first;
-    int size;
-};
 
 prioqueue *create_pq()
 {
@@ -41,16 +30,11 @@ int is_Empty(prioqueue *prioqueue)
 
 void free_pq(prioqueue *q)
 {
-    event *cell;
+   free(q);
+    
 
-    do
-    {
-        cell = remove_min_pq(q);
 
-        free(cell);
-    } while (cell->c != NULL && !is_Empty(q));
-
-    free(q);
+    
 }
 
 int size_pq(prioqueue *q)
@@ -63,7 +47,7 @@ void insert_pq(prioqueue *q, event *e)
     link *current = q->first;
     link *new_lnk = (link *)malloc(sizeof(link));
     new_lnk->e = e;
-
+     new_lnk->next = NULL;
     if (q->first == NULL)
     {
         q->first = new_lnk;
@@ -78,7 +62,7 @@ void insert_pq(prioqueue *q, event *e)
         return;
     }
 
-    while (current->e->etime > e->etime)
+    while (current->next != NULL && current->e->etime > e->etime)
     {
         current = current->next;
     }
@@ -89,20 +73,25 @@ void insert_pq(prioqueue *q, event *e)
 
 event *remove_min_pq(prioqueue *q)
 {
-    assert(q->size > 0);
-    link *tmp = q->first;
-    event *e = q->first->e;
-    q->first = q->first->next;
-    q->size--;
-    free(tmp);
-    return e;
+    if(q->size > 0){
+        link *tmp = q->first;
+        event *e = q->first->e;
+        q->first = q->first->next;
+        q->size--;
+        free(tmp);
+        return e;
+
+    }
+    return NULL;
+
 }
 void display_pq(prioqueue *q)
 {
     link *current = q->first;
     while (current != NULL)
     {
-        printf("  %d \n", current->e->c->atime);
+        printf("  %d \n", current->e->etime);
         current = current->next;
     }
+   
 }

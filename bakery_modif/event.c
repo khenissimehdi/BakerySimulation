@@ -18,5 +18,6 @@ event *create_departure(int etime, customer *c) {
 }
 
 void free_event(event *e) {
+
 	free(e);
 }
