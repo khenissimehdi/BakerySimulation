@@ -73,7 +73,6 @@ void enqueue_q(queue *q, customer *c)
     }
     else
     {
-
         q->first = new_lnk;
     }
     q->last = new_lnk;
@@ -83,7 +82,7 @@ void enqueue_q(queue *q, customer *c)
 customer *dequeue_q(queue *q)
 {
     if(q->size > 0){
-         link *tmp = q->first;
+        link *tmp = q->first;
         customer *c = q->first->c;
         q->first = q->first->next;
 
