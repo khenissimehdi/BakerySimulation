@@ -1,0 +1,6 @@
+enqueue_q : o(1) 
+dequeue_q : o(1)
+
+
+insert_pq : o(n)
+remove_min_pq o(1)
